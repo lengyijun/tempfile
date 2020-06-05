@@ -1,3 +1,4 @@
+use std::prelude::v1::*;
 use rand::distributions::Alphanumeric;
 use rand::{self, Rng};
 use std::ffi::{OsStr, OsString};

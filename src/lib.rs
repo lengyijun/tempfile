@@ -126,6 +126,10 @@
 #![deny(rust_2018_idioms)]
 #![allow(clippy::redundant_field_names)]
 
+#![no_std]
+extern crate sgx_tstd as std;
+extern crate sgx_libc as libc;
+
 #[macro_use]
 extern crate cfg_if;
 

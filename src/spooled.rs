@@ -1,3 +1,4 @@
+use std::prelude::v1::*;
 use crate::file::tempfile;
 use std::fs::File;
 use std::io::{self, Cursor, Read, Seek, SeekFrom, Write};

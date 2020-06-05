@@ -8,7 +8,8 @@ use std::path::Path;
 use crate::util;
 
 #[cfg(not(target_os = "redox"))]
-use libc::{c_char, c_int, link, rename, unlink};
+use libc::{c_char, c_int};
+use libc::ocall::{link, rename, unlink};
 
 #[cfg(not(target_os = "redox"))]
 #[inline(always)]
@@ -60,11 +61,11 @@ fn create_unlinked(path: &Path) -> io::Result<File> {
 
 #[cfg(target_os = "linux")]
 pub fn create(dir: &Path) -> io::Result<File> {
-    use libc::{EISDIR, ENOENT, EOPNOTSUPP, O_EXCL, O_TMPFILE};
+    use libc::{EISDIR, ENOENT, EOPNOTSUPP, O_EXCL};
     OpenOptions::new()
         .read(true)
         .write(true)
-        .custom_flags(O_TMPFILE | O_EXCL) // do not mix with `create_new(true)`
+        .custom_flags( O_EXCL) // do not mix with `create_new(true)`
         .open(dir)
         .or_else(|e| {
             match e.raw_os_error() {
